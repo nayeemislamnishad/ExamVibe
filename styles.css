@@ -1,0 +1,605 @@
+body {
+    font-family: Arial, sans-serif;
+    
+   
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: url('https://images.unsplash.com/photo-1457276587196-a9d53d84c58b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+input[type="number"] {
+    width: 100px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #00ff15;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    margin: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 30px;
+}
+
+button:hover {
+    background-color:red;
+    color: black;
+}
+
+#answerSheet {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: left;
+}
+
+
+/* Same as before */
+
+.option {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    margin: 0 5px;
+}
+
+.option.selected {
+    background-color: #007bff;
+}
+/* Add the following styles to your existing styles.css file */
+
+.option {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 50%; /* Makes the shape a circle */
+    margin: 0 5px;
+}
+
+.option.selected {
+    background-color: #007bff;
+}
+
+/* Updated styles to create bubble circles with letters centered inside */
+
+.option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #000;
+    border-radius: 50%; /* Makes the shape a circle */
+    margin: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.option.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+/* Updated styles to highlight correct and incorrect answers */
+
+.correct {
+    background-color: #7fff7f; /* Green */
+}
+
+.incorrect {
+    background-color: #ff7f7f; /* Red */
+}
+
+/* Rest of the styles remain the same */
+
+
+.option {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #909497;
+    border-radius: 50%;
+    margin: 0 5px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.option.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.correct {
+    background-color: #7fff7f; /* Green */
+}
+
+.incorrect {
+    background-color: #ff7f7f; /* Red */
+}
+.option {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #909497;
+    border-radius: 50%;
+    margin: 0 5px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    outline: none; /* Remove default focus outline */
+}
+
+.option.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.correct {
+    background-color: #7fff7f; /* Green */
+}
+
+.incorrect {
+    background-color: #ff7f7f; /* Red */
+}
+.option {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    margin: 0 5px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    outline: none; /* Remove default focus outline */
+}
+
+.option.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.option.selected:focus {
+    outline: none; /* Remove focus outline for selected options */
+}
+
+.correct {
+    background-color: #7fff7f; /* Green */
+}
+
+.incorrect {
+    background-color:#FF5733; /* Red */
+}
+.correct-answer {
+    background-color: #7fff7f; /* Green */
+    color: #fff;
+}
+/* Updated styles to differentiate correct answer */
+
+.correct-answer {
+    background-color: #f0f0f0; /* Light gray */
+    color: #000; /* Black */
+}
+/* Updated styles to differentiate correct answer */
+
+.correct-answer {
+    margin-top: 5px;
+    color: green; /* Green color for correct answer */
+    font-weight: bold;
+}
+/* Updated styles to mark the correct answer circle green */
+.correct-answer-circle {
+    background-color: #7fff7f; /* Green */
+    color: #fff; /* White */
+}
+
+
+/* Updated styles to mark the circle of the correct answer in green */
+
+.correct-answer-circle {
+    background-color: green;
+    color: #fff;
+}
+/* Updated styles to color the full circle of the correct answer */
+
+/* Updated styles to differentiate correct answer */
+
+.correct-answer {
+    margin-top: 5px;
+    color: rgb(31, 226, 31); /* Green color for correct answer */
+    font-weight: bold;
+}
+
+/* Updated styles to differentiate correct answer */
+
+.correct-answer {
+    margin-top: 5px;
+    color: green; /* Green color for correct answer */
+    font-weight: bold;
+}
+
+/* Updated styles to create bubble circles with letters centered inside */
+
+.option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #0000009c;
+    border-radius: 50%; /* Makes the shape a circle */
+    margin: 0 8px;
+    font-size: 30px;
+    cursor: pointer;
+  margin-top:5px;
+  font-weight: lighter;
+  margin-left:8px;
+}
+
+.last-element-display {
+  
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+  font-size: 25px;
+  color:darkred;
+  font-weight: bold;
+}
+
+
+
+
+
+#timer{
+ color:red;
+  font-size: 25px;
+  position:fixed;
+  
+  
+  
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color:green;
+    color:white;
+    padding: 10px;
+    text-align: center;
+   
+    font-weight: bold;
+    
+    
+
+  
+  
+  
+}
+input[type="number"] {
+    width: 100px;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.skip{
+    background-color: #000;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+
+
+
+.last-element-display {
+    position: absolute;
+    top: 0;
+    /* right: 0; */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    font-size: 25px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    align-content: center;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+
+
+
+
+
+
+#upload-container {
+            text-align: center;
+        }
+
+        #image-preview {
+            max-width: 100%;
+            max-height: 80vh;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #image-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        #image-upload {
+            display: none;
+        }
+
+#upload-button {
+    width:40%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #upload-button:hover {
+            background-color: #45a049;
+        }
+
+
+
+#upload-button {
+    display: inline-block; /* Ensures width is respected */
+    width: 40%; /* Sets the width of the button */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 15px 30px; /* Increased padding for better appearance */
+    border: none; /* Removes default border */
+    border-radius: 8px; /* Rounds the corners */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for background color and transform */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    font-size: 16px; /* Sets a larger font size */
+    text-align: center; /* Centers the text */
+}
+
+/* Hover effect */
+#upload-button:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slightly enlarges the button */
+}
+
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height to center vertically, optional */
+}
+
+#upload-button {
+    display: inline-block; /* Ensures width is respected */
+    width: 40%; /* Sets the width of the button */
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 15px 30px; /* Increased padding for better appearance */
+    border: none; /* Removes default border */
+    border-radius: 8px; /* Rounds the corners */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for background color and transform */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    font-size: 16px; /* Sets a larger font size */
+    text-align: center; /* Centers the text */
+}
+
+/* Hover effect */
+#upload-button:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slightly enlarges the button */
+}
+
+
+
+
+
+.chat-bubble {
+    width: 67px;
+    height: 67px;
+    
+    color:darkred;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000;
+    user-select: none;
+    transition: transform 0.3s;
+    font-size:15px;
+    font-weight: bold;
+    border: 3px solid darkred;
+background-image: url("pop_q_papers.jpg");
+background-size:cover;
+background-repeat: no-repeat;
+
+}
+
+.chat-window {
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    display: none;
+    flex-direction: column;
+    z-index: 1001;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s, transform 0.3s;
+    
+}
+
+.chat-window.open {
+    display: flex;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.chat-header {
+    background-color: #007b;
+    color: white;
+    padding:5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ .chat-header button {
+    background: none;
+    
+    color: white;
+    
+    
+    margin: 0px;
+} 
+
+.image-container {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    padding-top: 0px;
+}
+
+.image-item {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.image-item p {
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    display: none;
+    z-index: 1000;
+}
+
+
+
+
+
+
+#noteIt {
+    color: #000;
+    font-size: 20px;
+    background-color: rgb(0 253 17 / 47%);
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: bolder;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+[id^="question"]{
+    
+    padding-top: 50px;
+    padding-left: 30px;
+    align-content: center;
+}
+
+.feedback-message {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    text-align: center;
+    border-radius: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-size:larger;
+    border: 2px solid green; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+
+    animation: float 5s infinite ease-in-out;
+    
+}
+.highlight {
+    font-weight: bold;
+    background:rgba(0, 47, 255, 0.596);
+    color: black;
+}
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-30px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
