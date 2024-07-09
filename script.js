@@ -2,6 +2,8 @@
 let totalCount = 0; 
 let answersSubmitted = false; // Flag to track whether answers have been submitted
 let countdownTimer; // Variable to store the countdown timer
+let startTime; // Variable to store the start time**** 
+let endTime; // Variable to store the end time****
 
 function startTimer(duration, display) {
     let timer = duration, minutes, seconds;
@@ -49,7 +51,8 @@ function generateAnswerSheet() {
         return;
     }
 
-
+    startTime = new Date().toLocaleString(); //**** Record the start time
+    
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
     for (let i = 1; i <= questionNumber; i++) {
         answerSheetHTML += `<div id="question${i}"><strong> ${i}:</strong> `;
@@ -103,6 +106,21 @@ function submitAnswers() {
     answersSubmitted = true; // Set flag to true after answers have been submitted
     clearInterval(countdownTimer); // Stop the countdown timer
 
+
+
+
+    // endTime = new Date(); //**** Record the end time
+    endTime = new Date().toLocaleString();
+    // console.log(`Start Time: ${startTime.toLocaleString()}`); //**** Log start time
+    // console.log(`End Time: ${endTime.toLocaleString()}`); //**** Log end time
+    // const timeTaken = (endTime - startTime) / 1000; //**** Calculate time taken in seconds
+    // console.log(`Time Taken: ${timeTaken} seconds`); //**** Log time taken
+
+
+
+
+
+
     // Hide submit button after confirmation
     idToHide.style.display = 'none';
 
@@ -153,6 +171,21 @@ function submitAnswers() {
     const answerSheetContainer = document.getElementById('answerSheet');
     answerSheetContainer.appendChild(lastElementDisplay);
     answerSheetContainer.appendChild(feedbackElement);
+
+   const justifyUser=document.createElement('div');
+   justifyUser.innerHTML = "Start Time: " + startTime + "<br>" + "Submit Time: " + endTime;
+
+   justifyUser.classList.add('justifyUserDesign');
+   const justifyUserContainer = document.getElementById('answerSheet');
+   justifyUserContainer.appendChild(lastElementDisplay);
+   justifyUserContainer.appendChild(justifyUser);
+   const scraches=document.createElement('div');
+   scraches.classList.add('scratches');
+   justifyUser.appendChild(scraches);
+
+
+
+
 
     const options = document.querySelectorAll('.option');
     options.forEach(opt => opt.onclick = null);
@@ -327,4 +360,3 @@ function getFeedbackMessage(marks){
         return `Don't give up, keep working hard! Your Position is not good.   You obtained: ${marks}/100`;
     }
 }
-
