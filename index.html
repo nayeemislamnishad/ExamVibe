@@ -8,27 +8,30 @@
 
 <link rel="stylesheet" href="styles.css">
 <script src="answerSheet.js"></script>
-    <script>
+    
 
         <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Function to change background color when inspect element is opened
+        
         function changeBackgroundColor() {
-            document.body.style.backgroundColor = '#ff0000'; // Change to red or any color you prefer
-            alert('Please do not inspect the code.'); // Optionally, alert the user
+           
+            let timerElement=document.getElementById("timer");
+            timerElement.style.borderTopLeftRadius="2px";
+             timerElement.style.borderTopRightRadius="2px";
+
         }
 
-        // Detect right-click on the page
+       
         document.addEventListener('contextmenu', function(e) {
-            e.preventDefault(); // Prevent context menu from opening
-            changeBackgroundColor(); // Call function to change background color
+            e.preventDefault(); 
+            changeBackgroundColor(); 
         });
 
-        // Detect Ctrl+Shift+I or F12 key press
+       
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-                e.preventDefault(); // Prevent inspect element when Ctrl+Shift+I is pressed
-                changeBackgroundColor(); // Call function to change background color
+                 e.preventDefault(); 
+                changeBackgroundColor();
             }
         });
     });
