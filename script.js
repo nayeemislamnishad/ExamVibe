@@ -2,10 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('noteIt').style.display = 'none';
     document.getElementById('submittext').style.display = 'none';
     document.getElementById('answerSheet').style.display = 'none';
-    document.getElementById('chatBubble').style.display = 'none';
     document.getElementById('timer').style.display = 'none';
+    document.getElementById('originalMarks').style.display = 'none';
+    
 
-    // Set the onbeforeunload handler to prompt user before leaving or refreshing
+ 
     window.onbeforeunload = function () {
         if (!answersSubmitted) {
             return "Are you sure you want to leave? Your answers will be lost.";
@@ -23,6 +24,8 @@ let isAutomaticSubmission = false;
 function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
     document.getElementById('needToKnow').style.display = 'none';
+     document.getElementById('needTag').style.display = 'none';
+
     let timer = duration, minutes, seconds;
     countdownTimer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -60,7 +63,6 @@ function generateAnswerSheet() {
     hideAll();
     document.getElementById('submittext').style.display = 'block';
     document.getElementById('answerSheet').style.display = 'block';
-    document.getElementById('chatBubble').style.display = 'block';
     document.getElementById('timer').style.display = 'block';
     const timerDisplay = document.getElementById('timer');
     startTimer(timerDuration * 60, timerDisplay);
@@ -80,6 +82,7 @@ function submitAnswers() {
     const idToHide = document.getElementById('submittext');
     if (!isAutomaticSubmission && !confirm("Are you sure you want to submit your answers? You won't be able to change them later.")) {
         return;
+        
     }
     if (answersSubmitted) return;
     answersSubmitted = true;
@@ -113,26 +116,22 @@ function submitAnswers() {
         }
     }
 
-    const lastElementDisplay = document.createElement('div');
-    lastElementDisplay.textContent = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
-    lastElementDisplay.classList.add('last-element-display');
+ document.getElementById('originalMarks').style.display = 'block';
+ let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
+
+
+ document.getElementById("originalMarks").textContent = output;
 
     const original_marks = (totalMarks * 100) / totalCount;
     const actual_marks = original_marks.toFixed(2);
-    console.log(original_marks);
-
-    const feedbackMessage = getFeedbackMessage(actual_marks);
-
-    const feedbackElement = document.createElement('div');
+     const feedbackMessage = getFeedbackMessage(actual_marks);
+     const feedbackElement = document.createElement('div');
     feedbackElement.textContent = feedbackMessage;
     feedbackElement.classList.add('feedback-message');
     const answerSheetContainer = document.getElementById('answerSheet');
-    answerSheetContainer.appendChild(lastElementDisplay);
     answerSheetContainer.appendChild(feedbackElement);
-
     const justifyUser = document.createElement('div');
     justifyUser.innerHTML = "Start Time: " + startTime + "<br>" + "Submit Time: " + endTime;
-
     justifyUser.classList.add('justifyUserDesign');
     const justifyUserContainer = document.getElementById('answerSheet');
     justifyUserContainer.appendChild(justifyUser);
