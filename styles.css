@@ -659,3 +659,11 @@ background-repeat: no-repeat;
     );
     pointer-events: none; /* Allow clicks to pass through */
 }
+
+#answers{
+  width:80%;
+  padding:10px;
+  font-size: 20px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
