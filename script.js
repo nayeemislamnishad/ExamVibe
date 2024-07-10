@@ -10,6 +10,9 @@ let answersSubmitted = false; // Flag to track whether answers have been submitt
 let countdownTimer; // Variable to store the countdown timer
 let startTime; // Variable to store the start time**** 
 let endTime; // Variable to store the end time****
+let isAutomaticSubmission = false; // Flag to track if the submission is automatic
+
+
 
 function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
@@ -24,9 +27,11 @@ function startTimer(duration, display) {
         display.textContent = minutes + ":" + seconds;
 
         if (--timer < 0) {
-            clearInterval(countdownTimer);
-            submitAnswers();
-        }
+    clearInterval(countdownTimer);
+    isAutomaticSubmission = true; // Set the flag to indicate automatic submission
+    submitAnswers();
+    }
+
     }, 1000);
 }
 
@@ -105,10 +110,11 @@ let tTaArray = [0];
 function submitAnswers() {
     const idToHide = document.getElementById('submittext');
 
-    // Confirmation before submitting answers
-    if (!confirm("Are you sure you want to submit your answers? You won't be able to change them later.")) {
-        return;
-    }
+   // Skip confirmation if it's an automatic submission
+if (!isAutomaticSubmission && !confirm("Are you sure you want to submit your answers? You won't be able to change them later.")) {
+    return;
+}
+
 
     if (answersSubmitted) return; // Prevent submitting answers multiple times
     answersSubmitted = true; // Set flag to true after answers have been submitted
@@ -202,6 +208,10 @@ function submitAnswers() {
         const questionDiv = document.getElementById(`question${i}`);
         questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
     }
+    
+    // Reset the isAutomaticSubmission flag after submission
+isAutomaticSubmission = false;
+
 
     // Set onbeforeunload handler initially
     window.onbeforeunload = function () {
