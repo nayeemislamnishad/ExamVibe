@@ -16,6 +16,7 @@ let isAutomaticSubmission = false; // Flag to track if the submission is automat
 
 function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
+    document.getElementById('needToKnow').style.display = 'none';
     let timer = duration, minutes, seconds;
     countdownTimer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
