@@ -685,4 +685,12 @@ background-repeat: no-repeat;
     text-align: justify;
 }
 
-/* Additional styling as per your design needs */
+#originalMarks{
+    border-color: green;
+    color:black;
+    width: 100%;
+     padding-top: 10px;
+     padding-bottom: 10px;
+     border-radius: 5px;
+     border-style: outset;
+} 
