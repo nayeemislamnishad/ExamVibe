@@ -1,4 +1,10 @@
 
+
+
+
+
+
+document.getElementById('noteIt').style.display = 'none';
 let totalCount = 0; 
 let answersSubmitted = false; // Flag to track whether answers have been submitted
 let countdownTimer; // Variable to store the countdown timer
@@ -6,6 +12,7 @@ let startTime; // Variable to store the start time****
 let endTime; // Variable to store the end time****
 
 function startTimer(duration, display) {
+    document.getElementById('answers').style.display = 'none';
     let timer = duration, minutes, seconds;
     countdownTimer = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -28,15 +35,15 @@ document.getElementById('answerSheet').style.display = 'none';
 document.getElementById('chatBubble').style.display = 'none';
 document.getElementById('timer').style.display = 'none';
 
-const questionNumber = gucco1.length;
-const timeInseconds = questionNumber * 20;
-const timeInMinutes= timeInseconds / 60;
-const timerDuration = Math.ceil(timeInMinutes);
+//const questionNumber = gucco1.length;
+//const timeInseconds = questionNumber * 20;
+//const timeInMinutes= timeInseconds / 60;
+//const timerDuration = Math.ceil(timeInMinutes);
 
 // const resultDiv = document.querySelector('.container');
-const resultDiv = document.getElementById('noteIt');
-const message = `Number of questions: <span class="highlight"> ${questionNumber} </span> <br> You will get 👉<span class="highlight"> ${timerDuration} minutes </span> to give this exam`;
-resultDiv.innerHTML = message;
+//const resultDiv = document.getElementById('noteIt');
+//const message = `Number of questions: <span class="highlight"> ${questionNumber} </span> <br> You will get 👉<span class="highlight"> ${timerDuration} minutes </span> to give this exam`;
+//resultDiv.innerHTML = message;
 
 function generateAnswerSheet() {
     
@@ -49,6 +56,7 @@ function generateAnswerSheet() {
     // Confirmation before generating answer sheet
     if (!answersSubmitted && !confirm("Are you ready for the exam? Ok, Lets start....")) {
         return;
+        
     }
 
     startTime = new Date().toLocaleString(); //**** Record the start time
