@@ -11,7 +11,7 @@ body {
 
 .container {
     max-width: 600px;
-    margin: 50px auto;
+    margin: 40px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -667,3 +667,22 @@ background-repeat: no-repeat;
   border: 2px solid black;
   border-radius: 5px;
 }
+
+#needToKnow {
+    background-color: white;
+    padding: 15px;
+    border: 1px solid green;
+    border-radius: 5px;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+  color:green;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#needToKnow p {
+    text-align: justify;
+}
+
+/* Additional styling as per your design needs */
