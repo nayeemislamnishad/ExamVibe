@@ -116,7 +116,14 @@ resultDiv.innerHTML = message;
         <br><br><br>
 
         <div class="container">
-            
+            <div id="needToKnow">
+    <p>আপনি যে প্রশ্নটিতে পরীক্ষা দিতে যাচ্ছেন সে প্রশ্নটির সঠিক উত্তর গুলো আগেই এখানে সেট করে দিন। উত্তরগুলো reverse করে দিন। <br> উদাহরণ : যদি ১,২,৩,৪ ও ৫ নম্বরের সঠিক উত্তরগুলো যথাক্রমে এমন হয় যে : dacba তবে আপনাকে বক্সে উত্তর গুলো সেট করে নিতে হবে এভাবে : abcad(reverse mode)। <br> আপনাকে আর কিছুই করতে হবে না ।শুধু  generate AnswerSheet এ ক্লিক করলেই আপনার পরিক্ষা শুরু হয়ে যাবে।</p>
+</div>
+
+          
+          
+          
+          
             <h2>Enter Correct Answers in reverse </h2>
             <input type="text" id="answers" placeholder="Enter answers like adaccadadccaa" oninput="validateAnswers()">
             <div id="error-message"></div>
