@@ -72,51 +72,13 @@ resultDiv.innerHTML = message;
 </head>
 
 <body>
-    <div id="chatBubble" class="chat-bubble">
-        💬 QN Papers
-    </div>
-    <div id="chatWindow" class="chat-window">
-        <div class="chat-header">
-            <span>Photos</span>
-            <button id="closeChat">&times;</button>
-        </div>
-        <div class="image-container">
-            <div class="image-item">
-                <p>Photo 1 Description</p>
-                <img src="1p.jpg" alt="Photo 1">
-            </div>
-            <div class="image-item">
-                <p>Photo 2 Description</p>
-                <img src="2p.jpg" alt="Photo 2">
-            </div>
-            <div class="image-item">
-                <p>Photo 3 Description</p>
-                <img src="3p.jpg" alt="Photo 3">
-            </div>
-            <div class="image-item">
-                <p>Photo 4 Description</p>
-                <img src="4p.jpg" alt="Photo 4">
-            </div>
-            <div class="image-item">
-                <p>Photo 5 Description</p>
-                <img src="5p.jpg" alt="Photo 5">
-            </div>
-            <div class="image-item">
-                <p>Photo 6 Description</p>
-                <img src="6p.jpg" alt="Photo 6">
-            </div>
-            <div class="image-item">
-                <p>Photo 7 Description</p>
-                <img src="7p.jpg" alt="Photo 7">
-            </div>
-        </div>
-    </div>
-    <div id="overlay" class="overlay"></div>
+   
 
    
-        <br><br><br>
+        <br><br>
 
         <div class="container">
+            <h2 id="originalMarks"></h2>
             <div id="needToKnow">
     <p>আপনি যে প্রশ্নটিতে পরীক্ষা দিতে যাচ্ছেন সে প্রশ্নটির সঠিক উত্তর গুলো আগেই এখানে সেট করে দিন। উত্তরগুলো reverse করে দিন। <br> উদাহরণ : যদি ১,২,৩,৪ ও ৫ নম্বরের সঠিক উত্তরগুলো যথাক্রমে এমন হয় যে : dacba তবে আপনাকে বক্সে উত্তর গুলো সেট করে নিতে হবে এভাবে : abcad(reverse mode)। <br> আপনাকে আর কিছুই করতে হবে না ।শুধু  generate AnswerSheet এ ক্লিক করলেই আপনার পরিক্ষা শুরু হয়ে যাবে।</p>
 </div>
@@ -125,7 +87,7 @@ resultDiv.innerHTML = message;
           
           
           
-            <h2>Enter Correct Answers in reverse </h2>
+            <h2 id="needTag">Enter Correct Answers in reverse </h2>
             <input type="text" id="answers" placeholder="Enter answers like adaccadadccaa" oninput="validateAnswers()">
             <div id="error-message"></div>
           <div id="noteIt"></div>
