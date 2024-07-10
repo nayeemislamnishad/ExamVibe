@@ -118,7 +118,7 @@ function submitAnswers() {
 
  document.getElementById('originalMarks').style.display = 'block';
  let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
-
+  
 
  document.getElementById("originalMarks").textContent = output;
 
@@ -148,7 +148,24 @@ function submitAnswers() {
     }
 
     isAutomaticSubmission = false;
+
+
+    window.onbeforeunload = function () {
+        if (!answersSubmitted) {
+            return "Are you sure you want to leave? Your answers will be lost.";
+        }
+    };
+
+
+    // Alert the user about leaving the page after submission
+    window.onbeforeunload = function () {
+        if (totalMarks !== null) {
+            return "You have submitted your answers. Are you sure you want to leave the page?";
+        }
+    };
 }
+
+
 
 function hideAll() {
     const divIdsToHide = ['questionNumber', 'timerDuration', 'generatedText', 'questionnumbertext', 'timetext', 'headtext'];
@@ -171,3 +188,12 @@ function getFeedbackMessage(marks) {
         return `Don't give up, keep working hard! Your Position is not good. You obtained: ${marks}/100`;
     }
 }
+
+
+
+
+
+
+
+
+
