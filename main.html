@@ -72,7 +72,18 @@ resultDiv.innerHTML = message;
 </head>
 
 <body>
-  
+     <script>
+function checkLoginStatus() {
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+        window.location.href = "index.html";
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    checkLoginStatus();
+});
+</script>
 
    
         <br><br>
@@ -101,18 +112,7 @@ resultDiv.innerHTML = message;
 
 
 
-   <script>
-function checkLoginStatus() {
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-        window.location.href = "index.html";
-    }
-}
 
-window.addEventListener("DOMContentLoaded", () => {
-    checkLoginStatus();
-});
-</script>
         <script src="script.js"></script>
         
         <script>
