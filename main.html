@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -93,15 +93,15 @@ resultDiv.innerHTML = message;
           <div id="noteIt"></div>
             <button onclick="generateAnswerSheet()" id="generatedText">Generate Answer Sheet</button>
             <div id="result" style="float: right; margin-right: 10px;"></div> <!-- Result will be displayed here -->
-            <div id="answerSheet"></div>
+<!--             <div id="answerSheet"></div>
             <div id="timer"></div>
             <button onclick="submitAnswers()" id="submittext">Submit Answers</button>
         </div>
         <div class="scroll-to-bottom"></div>
+ -->
 
 
-
-    <script>
+<!--     <script>
 function checkLoginStatus() {
     const isLoggedIn = sessionStorage.getItem("isLoggedIn");
     if (!isLoggedIn) {
@@ -146,7 +146,143 @@ window.addEventListener("DOMContentLoaded", () => {
                     });
                 });
             });
-        </script>
-   
+        </script> -->
+<!--    
 </body>
 </html>
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamVibe</title>
+<link rel="icon" href="ExamVibe.ico" type="image/x-icon">
+<link rel="stylesheet" href="styles.css">
+
+<script>
+    let gucco1 = "";
+
+    function validateAnswers() {
+        const answers = document.getElementById('answers').value;
+        const errorMessage = document.getElementById('error-message');
+        const submitButton = document.getElementById('generatedText');
+        const isValid = /^[abcd]+$/.test(answers);
+
+        if (!isValid) {
+            errorMessage.textContent = "Please use only 'a', 'b', 'c', 'd' (lowercase letters only).";
+            errorMessage.style.color = 'red';
+            submitButton.disabled = true;
+        } else {
+            gucco1 = answers.split('').reverse().join('');
+            errorMessage.textContent = "";
+            submitButton.disabled = false;
+            document.getElementById('noteIt').style.display = 'block';
+            const questionNumber = gucco1.length;
+            const timeInseconds = questionNumber * 20;
+            const timeInMinutes= timeInseconds / 60;
+            const timerDuration = Math.ceil(timeInMinutes);
+            const resultDiv = document.getElementById('noteIt');
+            const message = `Number of questions: <span class="highlight"> ${questionNumber} </span> <br> You will get 👉<span class="highlight"> ${timerDuration} minutes </span> to give this exam`;
+            resultDiv.innerHTML = message;
+            console.log(gucco1);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        function changeBackgroundColor() {
+            let timerElement = document.getElementById("timer");
+            timerElement.style.borderTopLeftRadius = "2px";
+            timerElement.style.borderTopRightRadius = "2px";
+        }
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault(); 
+            changeBackgroundColor(); 
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+                e.preventDefault(); 
+                changeBackgroundColor();
+            }
+        });
+    });
+</script>
+    
+</head>
+
+<body>
+    <br><br>
+    <div class="container">
+        <h2 id="originalMarks"></h2>
+        <div id="needToKnow">
+            <p>আপনি যে প্রশ্নটিতে পরীক্ষা দিতে যাচ্ছেন সে প্রশ্নটির সঠিক উত্তর গুলো আগেই এখানে সেট করে দিন। উত্তরগুলো reverse করে দিন। <br> উদাহরণ : যদি ১,২,৩,৪ ও ৫ নম্বরের সঠিক উত্তরগুলো যথাক্রমে এমন হয় যে : dacba তবে আপনাকে বক্সে উত্তর গুলো সেট করে নিতে হবে এভাবে : abcad(reverse mode)। <br> আপনাকে আর কিছুই করতে হবে না ।শুধু  generate AnswerSheet এ ক্লিক করলেই আপনার পরিক্ষা শুরু হয়ে যাবে।</p>
+        </div>
+        <h2 id="needTag">Enter Correct Answers in reverse </h2>
+        <input type="text" id="answers" placeholder="Enter answers like adaccadadccaa" oninput="validateAnswers()">
+        <div id="error-message"></div>
+        <div id="noteIt"></div>
+        <button onclick="generateAnswerSheet()" id="generatedText">Generate Answer Sheet</button>
+        <div id="result" style="float: right; margin-right: 10px;"></div>
+        <div id="answerSheet"></div>
+        <div id="timer"></div>
+        <button onclick="submitAnswers()" id="submittext">Submit Answers</button>
+    </div>
+    <div class="scroll-to-bottom"></div>
+
+    <script>
+        function checkLoginStatus() {
+            const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+            if (isLoggedIn !== "true") {
+                window.location.href = "index.html";
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            checkLoginStatus();
+        });
+    </script>
+    <script src="script.js"></script>
+        
+    <script>
+        let uploaded = false;
+
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('image-preview');
+                output.innerHTML = '<img src="' + reader.result + '" alt="Uploaded Image">';
+                uploaded = true;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        window.addEventListener('beforeunload', function (e) {
+            if (uploaded) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitBtn = document.getElementById('submittext');
+
+            submitBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+ 
