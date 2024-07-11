@@ -72,14 +72,7 @@ resultDiv.innerHTML = message;
 </head>
 
 <body>
-   <script>
-        console.log('Checking login status');
-        const isLoggedIn = localStorage.getItem('isLoggedIn');
-        console.log('isLoggedIn:', isLoggedIn);
-        if (isLoggedIn !== 'true') {
-            window.location.href = 'index.html';
-        }
-    </script>
+  
 
    
         <br><br>
@@ -105,7 +98,21 @@ resultDiv.innerHTML = message;
             <button onclick="submitAnswers()" id="submittext">Submit Answers</button>
         </div>
         <div class="scroll-to-bottom"></div>
-       
+
+
+
+    <script>
+function checkLoginStatus() {
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    if (!isLoggedIn) {
+        window.location.href = "index.html";
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    checkLoginStatus();
+});
+</script>
         <script src="script.js"></script>
         
         <script>
