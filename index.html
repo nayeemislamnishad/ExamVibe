@@ -16,6 +16,7 @@
                     <label>Secret Code</label>
                 </div>
                 <button type="submit">Verify</button>
+                <p id="error-message" style="color: red; display: none;">Invalid Secret Code</p>
             </form>
         </div>
     </div>
@@ -28,16 +29,13 @@
         ];
         const justify = "EEEEE";
 
-        // Obfuscation function
         function obfuscateText(text) {
             let result = "";
-            
             for (let i = 0; i < text.length; i++) {
                 let charCode = text.charCodeAt(i);
                 let index = (charCode * 7 + 3) % conversionTable.length;
                 result += conversionTable[index];
             }
-            
             return result;
         }
 
@@ -50,7 +48,7 @@
                 localStorage.setItem('isLoggedIn', 'true');
                 window.location.href = 'main.html';
             } else {
-                alert('Invalid Secret Code');
+                document.getElementById('error-message').style.display = 'block';
             }
         });
     </script>
