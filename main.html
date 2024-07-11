@@ -72,8 +72,15 @@ resultDiv.innerHTML = message;
 </head>
 
 <body>
-   <script>
+  <script>
+        // Redirect to login page if not logged in
         if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'index.html';
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
             window.location.href = 'index.html';
         }
     </script>
