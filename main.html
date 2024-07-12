@@ -48,25 +48,25 @@ resultDiv.innerHTML = message;
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        function changeBackgroundColor() {
-            let timerElement = document.getElementById("timer");
-            timerElement.style.borderTopLeftRadius = "2px";
-            timerElement.style.borderTopRightRadius = "2px";
-        }
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     function changeBackgroundColor() {
+    //         let timerElement = document.getElementById("timer");
+    //         timerElement.style.borderTopLeftRadius = "2px";
+    //         timerElement.style.borderTopRightRadius = "2px";
+    //     }
 
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault(); 
-            changeBackgroundColor(); 
-        });
+    //     document.addEventListener('contextmenu', function(e) {
+    //         e.preventDefault(); 
+    //         changeBackgroundColor(); 
+    //     });
 
-        document.addEventListener('keydown', function(e) {
-            if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-                e.preventDefault(); 
-                changeBackgroundColor();
-            }
-        });
-    });
+    //     document.addEventListener('keydown', function(e) {
+    //         if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+    //             e.preventDefault(); 
+    //             changeBackgroundColor();
+    //         }
+    //     });
+    // });
 </script>
     
 </head>
