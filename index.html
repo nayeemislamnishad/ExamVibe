@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExamVibe (Verification Page)</title>
     <link rel="stylesheet" href="styless.css">
+    <style>
+        /* Custom alert box styles */
+        .custom-alert {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .custom-alert .alert-content {
+            margin-bottom: 20px;
+        }
+        .custom-alert .alert-button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -29,6 +56,12 @@
         </div>
     </div>
 
+    <!-- Custom alert box -->
+    <div id="customAlert" class="custom-alert">
+        <div class="alert-content" id="alertContent"></div>
+        <button class="alert-button" onclick="resolveCustomAlert()">OK</button>
+    </div>
+
     <script>
         const conversionTable = [
             '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
@@ -50,28 +83,30 @@
             return result;
         }
 
-        document.getElementById('verification-form').addEventListener('submit', function(event) {
+        // Custom Alert
+        function showCustomAlert(message) {
+            return new Promise((resolve) => {
+                document.getElementById('alertContent').innerText = message;
+                document.getElementById('customAlert').style.display = 'block';
+                window.resolveCustomAlert = function() {
+                    document.getElementById('customAlert').style.display = 'none';
+                    resolve();
+                };
+            });
+        }
+
+        document.getElementById('verification-form').addEventListener('submit', async function(event) {
             event.preventDefault();
             const secretCode = document.getElementById('secret-code').value;
             const obfuscatedText = obfuscateText(secretCode);
 
             if (obfuscatedText === justify) {
-              //   localStorage.setItem('isLoggedIn', 'true');
-                 sessionStorage.setItem("isLoggedIn", true);
-
-                // console.log("isLoggedIn:", isLoggedIn);
+                sessionStorage.setItem("isLoggedIn", true);
                 window.location.href = 'main.html';
             } else {
-                alert('Invalid Secret Code');
+                await showCustomAlert('Invalid Secret Code');
             }
         });
     </script>
 </body>
-</html> 
-
-
-
-
-
-
-
+</html>
