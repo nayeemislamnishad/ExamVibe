@@ -116,7 +116,7 @@ function startExam() {
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
     for (let i = 1; i <= questionNumber; i++) {
-        answerSheetHTML += `<div id="question${i+5}"><strong> ${i+5}:</strong> `;
+        answerSheetHTML += `<div id="question${i}"><strong> ${i}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
             answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i})">${option}</div>`;
