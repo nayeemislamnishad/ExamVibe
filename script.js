@@ -4,6 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('answerSheet').style.display = 'none';
     document.getElementById('timer').style.display = 'none';
     document.getElementById('originalMarks').style.display = 'none';
+    var ddddd= document.getElementById('generatedText');
+    ddddd.style.border="solid 2px #0a147b42";
+    ddddd.style.background="skyblue";
+    ddddd.style.borderRadius="20px";
+    ddddd.style.width="60%";
+    ddddd.style.height="50px";
+    ddddd.style.fontSize="20px";
+    ddddd.style.padding="3px";
+    ddddd.addEventListener("mouseenter", function() {
+        ddddd.style.backgroundColor = "blue"; // Change background color on hover
+        ddddd.style.color = "white";          // Change text color on hover
+    });
     
 
  
@@ -42,13 +54,51 @@ function startTimer(duration, display) {
 }
 
 function generateAnswerSheet() {
+    if (confirm("Are you sure you want to generate the answer sheet?")) {
+
+        
+
+        startReviseTimer();
+    }
+}
+
+function startReviseTimer() {
+    
+     document.getElementById("answers").style.display="none";
+    let timeLeft =15;
+    const timerElement = document.getElementById('timer');
+    const submitButton = document.getElementById('generatedText');
+
+    submitButton.style.display = 'block';
+    timerElement.style.display = 'none';
+
+    submitButton.disabled=true;
+    const timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+            
+            submitButton.textContent = timeLeft;
+            timeLeft--;
+        } else {
+            clearInterval(timerInterval);
+            submitButton.textContent = 'Ready... 1, 2, 3, Go!';
+            
+            setTimeout(() => {
+                submitButton.style.display = 'none';
+                startExam();
+            }, 2000); 
+        }
+    }, 1000);
+}
+
+
+function startExam() {
     const questionNumber = gucco1.length;
     const timeInSeconds = questionNumber * 20;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = Math.ceil(timeInMinutes);
-    if (!answersSubmitted && !confirm("Are you ready for the exam? Ok, Let's start....")) {
-        return;
-    }
+    // if (!answersSubmitted && !confirm("Are you ready for the exam? Ok, Let's start....")) {
+    //     return;
+    // }
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
     for (let i = 1; i <= questionNumber; i++) {
@@ -62,6 +112,11 @@ function generateAnswerSheet() {
     document.getElementById('answerSheet').innerHTML = answerSheetHTML;
     hideAll();
     document.getElementById('submittext').style.display = 'block';
+    var designSb = document.getElementById("submittext");
+    designSb.style.fontSize="20px";
+    
+    designSb.style.border="solid 2px #0dc722";
+    designSb.style.borderRadius="20px";
     document.getElementById('answerSheet').style.display = 'block';
     document.getElementById('timer').style.display = 'block';
     const timerDisplay = document.getElementById('timer');
@@ -188,7 +243,6 @@ function getFeedbackMessage(marks) {
         return `Don't give up, keep working hard! Your Position is not good. You obtained: ${marks}/100`;
     }
 }
-
 
 
 
