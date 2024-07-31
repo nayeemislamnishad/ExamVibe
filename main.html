@@ -7,7 +7,37 @@
 <link rel="icon" href="ExamVibe.ico" type="image/x-icon">
 
 <link rel="stylesheet" href="styles.css">
-
+<style>
+    /* Custom alert box styles */
+    .custom-alert, .custom-confirm {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .custom-alert .alert-content, .custom-confirm .confirm-content {
+        margin-bottom: 20px;
+    }
+    .custom-alert .alert-button, .custom-confirm .confirm-button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    .custom-confirm .confirm-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
     
 <script>
     let gucco1 = "";
@@ -72,7 +102,18 @@ resultDiv.innerHTML = message;
 </head>
 
 <body>
-     
+    <div id="customAlert" class="custom-alert">
+        <div class="alert-content" id="alertContent"></div>
+        <button class="alert-button" onclick="resolveCustomAlert()">OK</button>
+    </div>
+
+    <div id="customConfirm" class="custom-confirm">
+        <div class="confirm-content" id="confirmContent"></div>
+        <div class="confirm-buttons">
+            <button class="confirm-button" onclick="resolveCustomConfirm(true)">Yes</button>
+            <button class="confirm-button" onclick="resolveCustomConfirm(false)">No</button>
+        </div>
+    </div>
 
    
         <br><br>
