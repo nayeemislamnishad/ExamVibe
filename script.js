@@ -65,7 +65,7 @@ function generateAnswerSheet() {
 function startReviseTimer() {
     
      document.getElementById("answers").style.display="none";
-    let timeLeft =15;
+    let timeLeft =30;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
