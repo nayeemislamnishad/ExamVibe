@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ExamVibe</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>ExamVibe (Verification Page)</title>
+    <link rel="stylesheet" href="styless.css">
     <style>
         /* Custom alert box styles */
-        .custom-alert, .custom-confirm {
+        .custom-alert {
             display: none;
             position: fixed;
             z-index: 1000;
@@ -19,10 +19,10 @@
             padding: 20px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
-        .custom-alert .alert-content, .custom-confirm .confirm-content {
+        .custom-alert .alert-content {
             margin-bottom: 20px;
         }
-        .custom-alert .alert-button, .custom-confirm .confirm-button {
+        .custom-alert .alert-button {
             display: block;
             margin: 0 auto;
             padding: 10px 20px;
@@ -31,30 +31,82 @@
             border: none;
             cursor: pointer;
         }
-        .custom-confirm .confirm-buttons {
-            display: flex;
-            justify-content: space-between;
-        }
     </style>
 </head>
 <body>
-    <!-- Existing content -->
-    
+
+    <div class="container">
+        <header>
+            <h1 class="examvibe-header" style="padding: 20px; border-radius: 15px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                <img src="gradcap.jpg" style="width: 80px; margin-right: 15px;">
+                ExamVibe
+            </h1>
+        </header>
+        <div class="verification-box">
+            <h2>Verification</h2>
+            <form id="verification-form">
+                <div class="input-box">
+                    <input type="text" id="secret-code" required>
+                    <label>Entry Code</label>
+                </div>
+                <button type="submit">Verify</button>
+                <p style="padding-top: 10px;"><a href="about.html" style="text-decoration: none;">Don't have entry code? click here</a></p>
+                <p style="font-size: 16px;padding: 0px;margin: 0px;"><a href="aboutweb.html" style="text-decoration: none;color: green;"><u>What this website does?</u></a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom alert box -->
     <div id="customAlert" class="custom-alert">
         <div class="alert-content" id="alertContent"></div>
         <button class="alert-button" onclick="resolveCustomAlert()">OK</button>
     </div>
 
-    <div id="customConfirm" class="custom-confirm">
-        <div class="confirm-content" id="confirmContent"></div>
-        <div class="confirm-buttons">
-            <button class="confirm-button" onclick="resolveCustomConfirm(true)">Yes</button>
-            <button class="confirm-button" onclick="resolveCustomConfirm(false)">No</button>
-        </div>
-    </div>
+    <script>
+        const conversionTable = [
+            '!', '@', '#', '$', '%', '^', '&', '*', '(', ')',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+            '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
+        ];
+        const justify = "EEEEE";
 
-    <!-- Existing content -->
+        // Obfuscation function
+        function obfuscateText(text) {
+            let result = "";
+            
+            for (let i = 0; i < text.length; i++) {
+                let charCode = text.charCodeAt(i);
+                let index = (charCode * 7 + 3) % conversionTable.length;
+                result += conversionTable[index];
+            }
+            
+            return result;
+        }
 
-    <script src="script.js"></script>
+        // Custom Alert
+        function showCustomAlert(message) {
+            return new Promise((resolve) => {
+                document.getElementById('alertContent').innerText = message;
+                document.getElementById('customAlert').style.display = 'block';
+                window.resolveCustomAlert = function() {
+                    document.getElementById('customAlert').style.display = 'none';
+                    resolve();
+                };
+            });
+        }
+
+        document.getElementById('verification-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const secretCode = document.getElementById('secret-code').value;
+            const obfuscatedText = obfuscateText(secretCode);
+
+            if (obfuscatedText === justify) {
+                sessionStorage.setItem("isLoggedIn", true);
+                window.location.href = 'main.html';
+            } else {
+                await showCustomAlert('Invalid Secret Code');
+            }
+        });
+    </script>
 </body>
 </html>
