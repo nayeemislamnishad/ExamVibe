@@ -16,9 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ddddd.style.backgroundColor = "blue"; // Change background color on hover
         ddddd.style.color = "white";          // Change text color on hover
     });
-    
 
- 
     window.onbeforeunload = function () {
         if (!answersSubmitted) {
             return "Are you sure you want to leave? Your answers will be lost.";
@@ -33,10 +31,34 @@ let startTime;
 let endTime;
 let isAutomaticSubmission = false;
 
+// Custom Alert
+function showCustomAlert(message) {
+    return new Promise((resolve) => {
+        document.getElementById('alertContent').innerText = message;
+        document.getElementById('customAlert').style.display = 'block';
+        window.resolveCustomAlert = function() {
+            document.getElementById('customAlert').style.display = 'none';
+            resolve();
+        };
+    });
+}
+
+// Custom Confirm
+function showCustomConfirm(message) {
+    return new Promise((resolve) => {
+        document.getElementById('confirmContent').innerText = message;
+        document.getElementById('customConfirm').style.display = 'block';
+        window.resolveCustomConfirm = function(response) {
+            document.getElementById('customConfirm').style.display = 'none';
+            resolve(response);
+        };
+    });
+}
+
 function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
     document.getElementById('needToKnow').style.display = 'none';
-     document.getElementById('needTag').style.display = 'none';
+    document.getElementById('needTag').style.display = 'none';
 
     let timer = duration, minutes, seconds;
     countdownTimer = setInterval(function () {
@@ -53,29 +75,25 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
-function generateAnswerSheet() {
-    if (confirm("Are you sure you want to generate the answer sheet?")) {
-
-        
-
+async function generateAnswerSheet() {
+    const confirmed = await showCustomConfirm("Are you sure you want to generate the answer sheet?");
+    if (confirmed) {
         startReviseTimer();
     }
 }
 
 function startReviseTimer() {
-    
-     document.getElementById("answers").style.display="none";
-    let timeLeft =30;
+    document.getElementById("answers").style.display="none";
+    let timeLeft = 30;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
     submitButton.style.display = 'block';
     timerElement.style.display = 'none';
 
-    submitButton.disabled=true;
+    submitButton.disabled = true;
     const timerInterval = setInterval(() => {
         if (timeLeft > 0) {
-            
             submitButton.textContent = timeLeft;
             timeLeft--;
         } else {
@@ -90,15 +108,11 @@ function startReviseTimer() {
     }, 1000);
 }
 
-
 function startExam() {
     const questionNumber = gucco1.length;
     const timeInSeconds = questionNumber * 20;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = Math.ceil(timeInMinutes);
-    // if (!answersSubmitted && !confirm("Are you ready for the exam? Ok, Let's start....")) {
-    //     return;
-    // }
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
     for (let i = 1; i <= questionNumber; i++) {
@@ -114,7 +128,6 @@ function startExam() {
     document.getElementById('submittext').style.display = 'block';
     var designSb = document.getElementById("submittext");
     designSb.style.fontSize="20px";
-    
     designSb.style.border="solid 2px #0dc722";
     designSb.style.borderRadius="20px";
     document.getElementById('answerSheet').style.display = 'block';
@@ -133,11 +146,11 @@ function selectOption(option, letter, questionNumber) {
     console.log(`Selected option ${letter} for Question ${questionNumber}`);
 }
 
-function submitAnswers() {
+async function submitAnswers() {
     const idToHide = document.getElementById('submittext');
-    if (!isAutomaticSubmission && !confirm("Are you sure you want to submit your answers? You won't be able to change them later.")) {
-        return;
-        
+    if (!isAutomaticSubmission) {
+        const confirmed = await showCustomConfirm("Are you sure you want to submit your answers? You won't be able to change them later.");
+        if (!confirmed) return;
     }
     if (answersSubmitted) return;
     answersSubmitted = true;
@@ -171,16 +184,15 @@ function submitAnswers() {
         }
     }
 
- document.getElementById('originalMarks').style.display = 'block';
- let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
-  
+    document.getElementById('originalMarks').style.display = 'block';
+    let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
 
- document.getElementById("originalMarks").textContent = output;
+    document.getElementById("originalMarks").textContent = output;
 
     const original_marks = (totalMarks * 100) / totalCount;
     const actual_marks = original_marks.toFixed(2);
-     const feedbackMessage = getFeedbackMessage(actual_marks);
-     const feedbackElement = document.createElement('div');
+    const feedbackMessage = getFeedbackMessage(actual_marks);
+    const feedbackElement = document.createElement('div');
     feedbackElement.textContent = feedbackMessage;
     feedbackElement.classList.add('feedback-message');
     const answerSheetContainer = document.getElementById('answerSheet');
@@ -204,23 +216,18 @@ function submitAnswers() {
 
     isAutomaticSubmission = false;
 
-
     window.onbeforeunload = function () {
         if (!answersSubmitted) {
             return "Are you sure you want to leave? Your answers will be lost.";
         }
     };
 
-
-    // Alert the user about leaving the page after submission
     window.onbeforeunload = function () {
         if (totalMarks !== null) {
             return "You have submitted your answers. Are you sure you want to leave the page?";
         }
     };
 }
-
-
 
 function hideAll() {
     const divIdsToHide = ['questionNumber', 'timerDuration', 'generatedText', 'questionnumbertext', 'timetext', 'headtext'];
@@ -243,11 +250,3 @@ function getFeedbackMessage(marks) {
         return `Don't give up, keep working hard! Your Position is not good. You obtained: ${marks}/100`;
     }
 }
-
-
-
-
-
-
-
-
