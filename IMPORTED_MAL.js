@@ -24,21 +24,36 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 });
 
-function showCustomAlert(message) {
-    document.getElementById('alertContent').innerText = message;
-    document.getElementById('customAlert').style.display = 'block';
-}
-
-function closeCustomAlert() {
-    document.getElementById('customAlert').style.display = 'none';
-}
-
 let totalCount = 0;
 let answersSubmitted = false;
 let countdownTimer;
 let startTime;
 let endTime;
 let isAutomaticSubmission = false;
+
+// Custom Alert
+function showCustomAlert(message) {
+    return new Promise((resolve) => {
+        document.getElementById('alertContent').innerText = message;
+        document.getElementById('customAlert').style.display = 'block';
+        window.resolveCustomAlert = function() {
+            document.getElementById('customAlert').style.display = 'none';
+            resolve();
+        };
+    });
+}
+
+// Custom Confirm
+function showCustomConfirm(message) {
+    return new Promise((resolve) => {
+        document.getElementById('confirmContent').innerText = message;
+        document.getElementById('customConfirm').style.display = 'block';
+        window.resolveCustomConfirm = function(response) {
+            document.getElementById('customConfirm').style.display = 'none';
+            resolve(response);
+        };
+    });
+}
 
 function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
@@ -60,9 +75,11 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
-function generateAnswerSheet() {
-    showCustomAlert("Are you sure you want to generate the answer sheet?");
-    startReviseTimer();
+async function generateAnswerSheet() {
+    const confirmed = await showCustomConfirm("Are you sure you want to generate the answer sheet?");
+    if (confirmed) {
+        startReviseTimer();
+    }
 }
 
 function startReviseTimer() {
@@ -129,10 +146,11 @@ function selectOption(option, letter, questionNumber) {
     console.log(`Selected option ${letter} for Question ${questionNumber}`);
 }
 
-function submitAnswers() {
+async function submitAnswers() {
     const idToHide = document.getElementById('submittext');
     if (!isAutomaticSubmission) {
-        showCustomAlert("Are you sure you want to submit your answers? You won't be able to change them later.");
+        const confirmed = await showCustomConfirm("Are you sure you want to submit your answers? You won't be able to change them later.");
+        if (!confirmed) return;
     }
     if (answersSubmitted) return;
     answersSubmitted = true;
@@ -168,6 +186,7 @@ function submitAnswers() {
 
     document.getElementById('originalMarks').style.display = 'block';
     let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
+
     document.getElementById("originalMarks").textContent = output;
 
     const original_marks = (totalMarks * 100) / totalCount;
