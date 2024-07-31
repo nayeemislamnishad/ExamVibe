@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamVibe</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Custom alert box styles */
+        .custom-alert {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .custom-alert .alert-content {
+            margin-bottom: 20px;
+        }
+        .custom-alert .alert-button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Existing content -->
+    
+    <div id="customAlert" class="custom-alert">
+        <div class="alert-content" id="alertContent"></div>
+        <button class="alert-button" onclick="closeCustomAlert()">OK</button>
+    </div>
+
+    <!-- Existing content -->
+
+    <script src="script.js"></script>
+</body>
+</html>
