@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('noteIt').style.display = 'none';
+     document.getElementById('noteIt').style.display = 'none';
     document.getElementById('submittext').style.display = 'none';
     document.getElementById('answerSheet').style.display = 'none';
     document.getElementById('timer').style.display = 'none';
@@ -57,7 +57,7 @@ function showCustomConfirm(message) {
 
 function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
-    document.getElementById('needToKnow').style.display = 'none';
+    // document.getElementById('needToKnow').style.display = 'none';   only for reverse mode
     document.getElementById('needTag').style.display = 'none';
     document.getElementById('numberInput').style.display = 'none';
     document.getElementById('numberInputText').style.display = 'none';
@@ -86,7 +86,7 @@ async function generateAnswerSheet() {
 
 function startReviseTimer() {
     document.getElementById("answers").style.display = "none";
-    let timeLeft = 3;
+    let timeLeft = 30;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
@@ -110,13 +110,47 @@ function startReviseTimer() {
     }, 1000);
 }
 
+function customRound(number) {
+    // Check if the number is an integer
+    if (Number.isInteger(number)) {
+        return number; // If it's already an integer, return it as is
+    }
+    
+    // Get the floor of the number
+    let floor = Math.floor(number);
+    // Check if the number is closer to the floor or ceiling value
+    if (number - floor > 0.5) {
+        return floor + 1; // Round up
+    } else {
+        return floor; // Round down
+    }
+}
+
+
+
+
+
 function startExam() {
     const questionNumber = gucco1.length;
     const startQ = startQnumber;
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
-    const timerDuration = Math.ceil(timeInMinutes);
+    // const timerDuration = Math.ceil(timeInMinutes);
+    const timerDuration = customRound(timeInMinutes);
+   console.log(timerDuration);
+    
+
+
+
+
+
+
+
+
+
+
+
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
     for (let i = 1; i <= questionNumber; i++) {
@@ -149,6 +183,19 @@ function selectOption(option, letter, questionNumber) {
     option.dataset.questionNumber = questionNumber;
     console.log(`Selected option ${letter} for Question ${questionNumber}`);
 }
+function formatNumber(number) {
+    if (Number.isInteger(number)) {
+        return number; // Return integer as is
+    } else {
+        // Convert number to a string with up to two decimal places
+        return parseFloat(number.toFixed(2));
+    }
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 
 async function submitAnswers() {
     const idToHide = document.getElementById('submittext');
@@ -187,14 +234,19 @@ async function submitAnswers() {
             questionDiv.innerHTML += `<div class="option skip">skipped</div>`;
         }
     }
-
+    
+    scrollToTop();
     document.getElementById('originalMarks').style.display = 'block';
-    let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
+    // let output = "Marks: " + totalMarks.toFixed(2) + "/" + totalCount;
+    let output = "Marks: " + formatNumber(totalMarks) + "/" + totalCount;
 
+
+    
     document.getElementById("originalMarks").textContent = output;
 
     const original_marks = (totalMarks * 100) / totalCount;
-    const actual_marks = original_marks.toFixed(2);
+    // const actual_marks = original_marks.toFixed(2);
+    const actual_marks =formatNumber(original_marks);
     const feedbackMessage = getFeedbackMessage(actual_marks);
     const feedbackElement = document.createElement('div');
     feedbackElement.textContent = feedbackMessage;
@@ -214,16 +266,30 @@ async function submitAnswers() {
     const options = document.querySelectorAll('.option');
     options.forEach(opt => opt.onclick = null);
     const startQ = startQnumber;
+
+
+
+    // for (let i = 1; i <= correctAnswers.length; i++) {
+    //     const correctLetter = correctAnswers[i - 1].trim();
+    //     const questionDiv = document.getElementById(`question${i + startQ}`);
+    //     const options = questionDiv.querySelectorAll('.option');
+    //     options.forEach(option => {
+    //         if (option.textContent.trim() === correctLetter) {
+    //             option.classList.add('correctAnswer');
+    //         }
+    //     });
+    // }
     for (let i = 1; i <= correctAnswers.length; i++) {
-        const correctLetter = correctAnswers[i - 1].trim();
-        const questionDiv = document.getElementById(`question${i + startQ}`);
-        const options = questionDiv.querySelectorAll('.option');
-        options.forEach(option => {
-            if (option.textContent.trim() === correctLetter) {
-                option.classList.add('correctAnswer');
-            }
-        });
+        const correctLetter = correctAnswers[i - 1];
+        const questionDiv = document.getElementById(`question${i+startQ}`);
+        questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
     }
+
+
+
+
+
+
     if (isAutomaticSubmission) {
         await showCustomAlert("Time's up! Your answers have been automatically submitted.");
     } else {
@@ -242,22 +308,50 @@ window.onbeforeunload = function () {
 
 }
 
-function getFeedbackMessage(score) {
-    if (score === 100) {
-        return "Excellent! You got all the answers correct!";
-    } else if (score >= 80) {
-        return "Great job! You have a strong understanding of the material.";
-    } else if (score >= 60) {
-        return "Good effort! There's still room for improvement.";
-    } else if (score >= 40) {
-        return "You passed, but consider reviewing the material.";
+
+
+
+
+
+
+// function getFeedbackMessage(score) {
+//     if (score === 100) {
+//         return "Excellent! You got all the answers correct!";
+//     } else if (score >= 80) {
+//         return "Great job! You have a strong understanding of the material.";
+//     } else if (score >= 60) {
+//         return "Good effort! There's still room for improvement.";
+//     } else if (score >= 40) {
+//         return "You passed, but consider reviewing the material.";
+//     } else {
+//         return "You did not pass. It might help to go over the material again.";
+//     }
+// }
+
+
+function getFeedbackMessage(marks) {
+    if (marks >= 85 && marks <= 100) {
+        return `You will top in any national level exam InshaAllah. You Obtained: ${marks}/100`;
+    } else if (marks >= 75 && marks < 85) {
+        return `Keep going, you're doing well. At least you will get a good subject in university exams InshaAllah! You obtained: ${marks}/100`;
+    } else if (marks >= 50 && marks < 75) {
+        return `You can do better, keep practicing. Have to do better! You obtained: ${marks}/100`;
     } else {
-        return "You did not pass. It might help to go over the material again.";
+        return `Don't give up, keep working hard! Your Position is not good. You obtained: ${marks}/100`;
     }
 }
 
+
+
+
+
+
+
+
+
+
 function hideAll() {
-    document.getElementById('noteIt').style.display = 'none';
+    // document.getElementById('noteIt').style.display = 'none';
     document.getElementById('generatedText').style.display = 'none';
 }
 
