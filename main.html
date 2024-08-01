@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ExamVibe</title>
 <link rel="icon" href="ExamVibe.ico" type="image/x-icon">
-
 <link rel="stylesheet" href="styles.css">
 <style>
     /* Custom alert box styles */
@@ -47,7 +46,6 @@ input[type="text"] {
     width: 100px;
     padding: 10px;
     font-size: 18px;
-    /* border: 2px solid #007bff; */
     border: 2px solid #1a1a1c;
     border-radius: 4px;
     text-align: center;
@@ -59,74 +57,45 @@ input[type="text"]:focus {
     outline: none;
 }
 </style>
-    
 <script>
     let gucco1 = "";
-
     function validateAnswers() {
-        // Get the input value
         const answers = document.getElementById('answers').value;
         const errorMessage = document.getElementById('error-message');
         const submitButton = document.getElementById('generatedText');
-
-        // Check if the input contains only 'a', 'b', 'c', 'd' (any length)
         const isValid = /^[abcd]+$/.test(answers);
-
         if (!isValid) {
-            // Display the error message
             errorMessage.textContent = "Please use only 'a', 'b', 'c', 'd' (lowercase letters only).";
             errorMessage.style.color = 'red';
-            // Disable the submit button
             submitButton.disabled = true;
         } else {
-            // Reverse the string
             gucco1 = answers.split('').reverse().join('');
-
-            // Hide the error message
             errorMessage.textContent = "";
-            // Enable the submit button
             submitButton.disabled = false;
-          document.getElementById('noteIt').style.display = 'block';
-          const questionNumber = gucco1.length;
-const timeInseconds = questionNumber * 20;
-const timeInMinutes= timeInseconds / 60;
-const timerDuration = Math.ceil(timeInMinutes);
-          const resultDiv = document.getElementById('noteIt');
-const message = `Number of questions: <span class="highlight"> ${questionNumber} </span> <br> You will get 👉<span class="highlight"> ${timerDuration} minutes </span> to give this exam`;
-resultDiv.innerHTML = message;
-            // Log the reversed string to the console
-            console.log(gucco1);
+            document.getElementById('noteIt').style.display = 'block';
+            const questionNumber = gucco1.length;
+            const resultDiv = document.getElementById('noteIt');
+            const message = `Number of questions: <span class="highlight"> ${questionNumber} </span>`;
+            resultDiv.innerHTML = message;
         }
     }
-
-    
-    let startQnumber="";
-    
-
+    let startQnumber = "";
     function validateNumber(input) {
-    const value = input.value;
-
-    // If the input is not a number, set the value to the default (1)
-    if (isNaN(value) || value === "") {
-        input.value = 1;
+        const value = input.value;
+        if (isNaN(value) || value === "") {
+            input.value = 1;
+        }
+        startQnumber = document.getElementById('numberInput').value;
+        startQnumber = parseInt(startQnumber, 10);
+        startQnumber -= 1;
     }
-     startQnumber=document.getElementById('numberInput').value;
-    startQnumber = parseInt(startQnumber, 10);
-    startQnumber -= 1;
-
-}
-
-   
 </script>
-    
 </head>
-
 <body>
     <div id="customAlert" class="custom-alert">
         <div class="alert-content" id="alertContent"></div>
         <button class="alert-button" onclick="resolveCustomAlert()">OK</button>
     </div>
-
     <div id="customConfirm" class="custom-confirm">
         <div class="confirm-content" id="confirmContent"></div>
         <div class="confirm-buttons">
@@ -134,84 +103,65 @@ resultDiv.innerHTML = message;
             <button class="confirm-button" onclick="resolveCustomConfirm(false)">No</button>
         </div>
     </div>
-
-   
-        <br><br>
-
-        <div class="container">
-            <h2 id="originalMarks"></h2>
-            <div id="needToKnow">
-    <p>আপনি যে প্রশ্নটিতে পরীক্ষা দিতে যাচ্ছেন সে প্রশ্নটির সঠিক উত্তর গুলো আগেই এখানে সেট করে দিন। উত্তরগুলো reverse করে দিন। <br> উদাহরণ : যদি ১,২,৩,৪ ও ৫ নম্বরের সঠিক উত্তরগুলো যথাক্রমে এমন হয় যে : dacba তবে আপনাকে বক্সে উত্তর গুলো সেট করে নিতে হবে এভাবে : abcad(reverse mode)। <br> আপনাকে আর কিছুই করতে হবে না ।শুধু  generate AnswerSheet এ ক্লিক করলেই আপনার পরিক্ষা শুরু হয়ে যাবে।</p>
-</div>
-
-          
-          
-          
-            <label for="numberInput" id="numberInputText"><b>Enter the starting question Number:</b></label>
-            <input type="text" id="numberInput" value="1" oninput="validateNumber(this)">
-
-
-          
-            <h2 id="needTag">Set Correct Answers here.. (in reverse) </h2>
-            <input type="text" id="answers" placeholder="Enter answers like adaccadadccaa" oninput="validateAnswers()">
-            <div id="error-message"></div>
-          <div id="noteIt"></div>
-            <button onclick="generateAnswerSheet()" id="generatedText">Generate Answer Sheet</button>
-            <div id="result" style="float: right; margin-right: 10px;"></div>
-           <div id="answerSheet"></div>
-            <div id="timer"></div>
-            <button onclick="submitAnswers()" id="submittext">Submit Answers</button>
+    <br><br>
+    <div class="container">
+        <h2 id="originalMarks"></h2>
+        <div id="needToKnow">
+            <p>আপনি যে প্রশ্নটিতে পরীক্ষা দিতে যাচ্ছেন সে প্রশ্নটির সঠিক উত্তর গুলো আগেই এখানে সেট করে দিন। উত্তরগুলো reverse করে দিন। <br> উদাহরণ : যদি ১,২,৩,৪ ও ৫ নম্বরের সঠিক উত্তরগুলো যথাক্রমে এমন হয় যে : dacba তবে আপনাকে বক্সে উত্তর গুলো সেট করে নিতে হবে এভাবে : abcad(reverse mode)। <br> আপনাকে আর কিছুই করতে হবে না ।শুধু  generate AnswerSheet এ ক্লিক করলেই আপনার পরিক্ষা শুরু হয়ে যাবে।</p>
         </div>
-        <div class="scroll-to-bottom"></div>
-
-
-
-
-        <script src="script.js"></script>
-        
-        <script>
-            let uploaded = false;
-
-            function previewImage(event) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var output = document.getElementById('image-preview');
-                    output.innerHTML = '<img src="' + reader.result + '" alt="Uploaded Image">';
-                    uploaded = true;
-                };
-                reader.readAsDataURL(event.target.files[0]);
+        <label for="numberInput" id="numberInputText"><b>Enter the starting question Number:</b></label>
+        <input type="text" id="numberInput" value="1" oninput="validateNumber(this)">
+        <label for="timePerQuestion" id="timePerQuestionText"><b>Enter time per question (seconds):</b></label>
+        <input type="text" id="timePerQuestion" value="20">
+        <h4 id="needTag">Set Correct Answers here.. (in reverse)</h4>
+        <input type="text" id="answers" placeholder="Enter answers like adaccadadccaa" oninput="validateAnswers()">
+        <div id="error-message"></div>
+        <div id="noteIt"></div>
+        <button onclick="generateAnswerSheet()" id="generatedText">Generate Answer Sheet</button>
+        <div id="result" style="float: right; margin-right: 10px;"></div>
+        <div id="answerSheet"></div>
+        <div id="timer"></div>
+        <button onclick="submitAnswers()" id="submittext">Submit Answers</button>
+    </div>
+    <div class="scroll-to-bottom"></div>
+    <script src="script.js"></script>
+    <script>
+        let uploaded = false;
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function () {
+                var output = document.getElementById('image-preview');
+                output.innerHTML = '<img src="' + reader.result + '" alt="Uploaded Image">';
+                uploaded = true;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        window.addEventListener('beforeunload', function (e) {
+            if (uploaded) {
+                e.preventDefault();
+                e.returnValue = '';
             }
-
-            window.addEventListener('beforeunload', function (e) {
-                if (uploaded) {
-                    e.preventDefault();
-                    e.returnValue = '';
-                }
-            });
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const submitBtn = document.getElementById('submittext');
-
-                submitBtn.addEventListener('click', function() {
-                    // Scroll to the bottom of the page
-                    window.scrollTo({
-                        top: document.body.scrollHeight,
-                        behavior: 'smooth'
-                    });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitBtn = document.getElementById('submittext');
+            submitBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth'
                 });
             });
-        </script> 
-   <script>
-function checkLoginStatus() {
-    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
-    if (!isLoggedIn) {
-        window.location.href = "index.html";
-    }
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-    checkLoginStatus();
-});
-</script>
+        });
+    </script>
+    <script>
+        function checkLoginStatus() {
+            const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+            if (!isLoggedIn) {
+                window.location.href = "index.html";
+            }
+        }
+        window.addEventListener("DOMContentLoaded", () => {
+            checkLoginStatus();
+        });
+    </script>
 </body>
 </html>
