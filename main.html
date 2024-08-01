@@ -37,6 +37,27 @@
         display: flex;
         justify-content: space-between;
     }
+    label {
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    width: 100px;
+    padding: 10px;
+    font-size: 18px;
+    /* border: 2px solid #007bff; */
+    border: 2px solid #1a1a1c;
+    border-radius: 4px;
+    text-align: center;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #0056b3;
+    outline: none;
+}
 </style>
     
 <script>
@@ -78,25 +99,24 @@ resultDiv.innerHTML = message;
         }
     }
 
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     function changeBackgroundColor() {
-    //         let timerElement = document.getElementById("timer");
-    //         timerElement.style.borderTopLeftRadius = "2px";
-    //         timerElement.style.borderTopRightRadius = "2px";
-    //     }
+    
+    let startQnumber="";
+    
 
-    //     document.addEventListener('contextmenu', function(e) {
-    //         e.preventDefault(); 
-    //         changeBackgroundColor(); 
-    //     });
+    function validateNumber(input) {
+    const value = input.value;
 
-    //     document.addEventListener('keydown', function(e) {
-    //         if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-    //             e.preventDefault(); 
-    //             changeBackgroundColor();
-    //         }
-    //     });
-    // });
+    // If the input is not a number, set the value to the default (1)
+    if (isNaN(value) || value === "") {
+        input.value = 1;
+    }
+     startQnumber=document.getElementById('numberInput').value;
+    startQnumber = parseInt(startQnumber, 10);
+    startQnumber -= 1;
+
+}
+
+   
 </script>
     
 </head>
@@ -127,6 +147,10 @@ resultDiv.innerHTML = message;
           
           
           
+            <label for="numberInput" id="numberInputText"><b>Enter the starting question Number:</b></label>
+            <input type="text" id="numberInput" value="1" oninput="validateNumber(this)">
+
+
           
             <h2 id="needTag">Set Correct Answers here.. (in reverse) </h2>
             <input type="text" id="answers" placeholder="Enter answers like adaccadadccaa" oninput="validateAnswers()">
