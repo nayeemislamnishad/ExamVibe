@@ -281,14 +281,12 @@ button:hover {
 
 
 
-
 #timer{
     color:red;
     font-size: 25px;
     position:fixed;
+    width: 100%;
     top: 0;
-    left: 90%;
-    transform: translateX(-50%);
     background-color: gold;
     color: black;
     border: solid 2px #0a147b42;
@@ -298,6 +296,7 @@ button:hover {
     font-weight: bold;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; 
+   
 }
 
 
