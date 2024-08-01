@@ -59,6 +59,8 @@ function startTimer(duration, display) {
     document.getElementById('answers').style.display = 'none';
     document.getElementById('needToKnow').style.display = 'none';
     document.getElementById('needTag').style.display = 'none';
+    document.getElementById('numberInput').style.display = 'none';
+    document.getElementById('numberInputText').style.display = 'none';
 
     let timer = duration, minutes, seconds;
     countdownTimer = setInterval(function () {
@@ -84,7 +86,7 @@ async function generateAnswerSheet() {
 
 function startReviseTimer() {
     document.getElementById("answers").style.display="none";
-    let timeLeft = 30;
+    let timeLeft = 3;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
 
@@ -110,13 +112,14 @@ function startReviseTimer() {
 
 function startExam() {
     const questionNumber = gucco1.length;
+    const startQ = startQnumber;
     const timeInSeconds = questionNumber * 20;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = Math.ceil(timeInMinutes);
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
     for (let i = 1; i <= questionNumber; i++) {
-        answerSheetHTML += `<div id="question${i}"><strong> ${i}:</strong> `;
+        answerSheetHTML += `<div id="question${i+startQ}"><strong> ${i+startQ}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
             answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i})">${option}</div>`;
@@ -205,12 +208,14 @@ async function submitAnswers() {
     const scratches = document.createElement('div');
     scratches.classList.add('scratches');
     justifyUser.appendChild(scratches);
-
+    
+    console.log(correctAnswers.length);
     const options = document.querySelectorAll('.option');
     options.forEach(opt => opt.onclick = null);
+    const startQ = startQnumber;
     for (let i = 1; i <= correctAnswers.length; i++) {
         const correctLetter = correctAnswers[i - 1];
-        const questionDiv = document.getElementById(`question${i}`);
+        const questionDiv = document.getElementById(`question${i+startQ}`);
         questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
     }
 
