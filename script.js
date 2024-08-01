@@ -1,27 +1,3 @@
-// script.js
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((registration) => {
-        console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      })
-      .catch((error) => {
-        console.log('ServiceWorker registration failed: ', error);
-      });
-  });
-}
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
      document.getElementById('noteIt').style.display = 'none';
     document.getElementById('submittext').style.display = 'none';
@@ -110,6 +86,29 @@ async function generateAnswerSheet() {
 
 function startReviseTimer() {
     document.getElementById("answers").style.display = "none";
+    document.getElementById("numberInput").style.display = "none"; 
+    document.getElementById("timePerQuestion").style.display = "none";
+    
+    document.getElementById("timePerQuestionText").style.display = "none";
+    document.getElementById("numberInputText").style.display = "none"; 
+    document.getElementById("needTag").style.display = "none";
+
+
+    // try
+    const questionNumber = gucco1.length;
+    const startQ = startQnumber;
+    const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
+    const timeInSeconds = questionNumber * timePerQuestion;
+    const timeInMinutes = timeInSeconds / 60;
+    const timerDuration = customRound(timeInMinutes);
+   console.log(timerDuration);
+const resultDiv = document.getElementById('minuteGarbage');
+resultDiv.textContent = `${timerDuration} minutes`;
+
+
+
+
+
     let timeLeft = 30;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
@@ -160,14 +159,10 @@ function startExam() {
     const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
     const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
-    // const timerDuration = Math.ceil(timeInMinutes);
     const timerDuration = customRound(timeInMinutes);
    console.log(timerDuration);
-    
-
-
-
-
+const resultDiv = document.getElementById('minuteGarbage');
+resultDiv.textContent = `${timerDuration} minutes`;
 
 
 
