@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ddddd.style.fontSize = "20px";
     ddddd.style.padding = "3px";
     ddddd.addEventListener("mouseenter", function () {
-        ddddd.style.backgroundColor = "blue"; // Change background color on hover
-        ddddd.style.color = "white";          // Change text color on hover
+        ddddd.style.backgroundColor = "gold"; // Change background color on hover
+        ddddd.style.color = "black";          // Change text color on hover
     });
 
     window.onbeforeunload = function () {
