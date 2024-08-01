@@ -694,3 +694,7 @@ background-repeat: no-repeat;
      border-radius: 5px;
      border-style: outset;
 } 
+
+button#generatedText {
+    margin: 1% 20%;
+}
