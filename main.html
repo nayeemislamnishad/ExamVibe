@@ -69,7 +69,8 @@ input[type="text"]:focus {
             errorMessage.style.color = 'red';
             submitButton.disabled = true;
         } else {
-            gucco1 = answers.split('').reverse().join('');
+            // gucco1 = answers.split('').reverse().join('');    // in case of reverse
+            gucco1 = answers;
             errorMessage.textContent = "";
             submitButton.disabled = false;
             document.getElementById('noteIt').style.display = 'block';
@@ -106,14 +107,19 @@ input[type="text"]:focus {
     <br><br>
     <div class="container">
         <h2 id="originalMarks"></h2>
-        <div id="needToKnow">
+
+
+        <!-- <div id="needToKnow">    in case of reverse
             <p>আপনি যে প্রশ্নটিতে পরীক্ষা দিতে যাচ্ছেন সে প্রশ্নটির সঠিক উত্তর গুলো আগেই এখানে সেট করে দিন। উত্তরগুলো reverse করে দিন। <br> উদাহরণ : যদি ১,২,৩,৪ ও ৫ নম্বরের সঠিক উত্তরগুলো যথাক্রমে এমন হয় যে : dacba তবে আপনাকে বক্সে উত্তর গুলো সেট করে নিতে হবে এভাবে : abcad(reverse mode)। <br> আপনাকে আর কিছুই করতে হবে না ।শুধু  generate AnswerSheet এ ক্লিক করলেই আপনার পরিক্ষা শুরু হয়ে যাবে।</p>
-        </div>
+        </div> -->
+
+
         <label for="numberInput" id="numberInputText"><b>Enter the starting question Number:</b></label>
         <input type="text" id="numberInput" value="1" oninput="validateNumber(this)">
         <label for="timePerQuestion" id="timePerQuestionText"><b>Enter time per question (seconds):</b></label>
         <input type="text" id="timePerQuestion" value="20">
-        <h4 id="needTag">Set Correct Answers here.. (in reverse)</h4>
+        <!-- <h4 id="needTag">Set Correct Answers here.. (in reverse)</h4>       in case ofreverse  --> 
+        <h4 id="needTag">Preset Correct Answers here... serially </h4>
         <input type="text" id="answers" placeholder="Enter answers like adaccadadccaa" oninput="validateAnswers()">
         <div id="error-message"></div>
         <div id="noteIt"></div>
