@@ -4,15 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('answerSheet').style.display = 'none';
     document.getElementById('timer').style.display = 'none';
     document.getElementById('originalMarks').style.display = 'none';
-    var ddddd= document.getElementById('generatedText');
-    ddddd.style.border="solid 2px #0a147b42";
-    ddddd.style.background="skyblue";
-    ddddd.style.borderRadius="20px";
-    ddddd.style.width="60%";
-    ddddd.style.height="50px";
-    ddddd.style.fontSize="20px";
-    ddddd.style.padding="3px";
-    ddddd.addEventListener("mouseenter", function() {
+    var ddddd = document.getElementById('generatedText');
+    ddddd.style.border = "solid 2px #0a147b42";
+    ddddd.style.background = "skyblue";
+    ddddd.style.borderRadius = "20px";
+    ddddd.style.width = "60%";
+    ddddd.style.height = "50px";
+    ddddd.style.fontSize = "20px";
+    ddddd.style.padding = "3px";
+    ddddd.addEventListener("mouseenter", function () {
         ddddd.style.backgroundColor = "blue"; // Change background color on hover
         ddddd.style.color = "white";          // Change text color on hover
     });
@@ -36,7 +36,7 @@ function showCustomAlert(message) {
     return new Promise((resolve) => {
         document.getElementById('alertContent').innerText = message;
         document.getElementById('customAlert').style.display = 'block';
-        window.resolveCustomAlert = function() {
+        window.resolveCustomAlert = function () {
             document.getElementById('customAlert').style.display = 'none';
             resolve();
         };
@@ -48,7 +48,7 @@ function showCustomConfirm(message) {
     return new Promise((resolve) => {
         document.getElementById('confirmContent').innerText = message;
         document.getElementById('customConfirm').style.display = 'block';
-        window.resolveCustomConfirm = function(response) {
+        window.resolveCustomConfirm = function (response) {
             document.getElementById('customConfirm').style.display = 'none';
             resolve(response);
         };
@@ -85,7 +85,7 @@ async function generateAnswerSheet() {
 }
 
 function startReviseTimer() {
-    document.getElementById("answers").style.display="none";
+    document.getElementById("answers").style.display = "none";
     let timeLeft = 3;
     const timerElement = document.getElementById('timer');
     const submitButton = document.getElementById('generatedText');
@@ -101,11 +101,11 @@ function startReviseTimer() {
         } else {
             clearInterval(timerInterval);
             submitButton.textContent = 'Ready... 1, 2, 3, Go!';
-            
+
             setTimeout(() => {
                 submitButton.style.display = 'none';
                 startExam();
-            }, 2000); 
+            }, 2000);
         }
     }, 1000);
 }
@@ -113,13 +113,14 @@ function startReviseTimer() {
 function startExam() {
     const questionNumber = gucco1.length;
     const startQ = startQnumber;
-    const timeInSeconds = questionNumber * 20;
+    const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
+    const timeInSeconds = questionNumber * timePerQuestion;
     const timeInMinutes = timeInSeconds / 60;
     const timerDuration = Math.ceil(timeInMinutes);
     startTime = new Date().toLocaleString();
     let answerSheetHTML = '<h2>OMR Answer Sheet</h2>';
     for (let i = 1; i <= questionNumber; i++) {
-        answerSheetHTML += `<div id="question${i+startQ}"><strong> ${i+startQ}:</strong> `;
+        answerSheetHTML += `<div id="question${i + startQ}"><strong> ${i + startQ}:</strong> `;
         for (let j = 0; j < 4; j++) {
             const option = String.fromCharCode(97 + j);
             answerSheetHTML += `<div class="option" onclick="selectOption(this, '${option}', ${i})">${option}</div>`;
@@ -130,9 +131,9 @@ function startExam() {
     hideAll();
     document.getElementById('submittext').style.display = 'block';
     var designSb = document.getElementById("submittext");
-    designSb.style.fontSize="20px";
-    designSb.style.border="solid 2px #0dc722";
-    designSb.style.borderRadius="20px";
+    designSb.style.fontSize = "20px";
+    designSb.style.border = "solid 2px #0dc722";
+    designSb.style.borderRadius = "20px";
     document.getElementById('answerSheet').style.display = 'block';
     document.getElementById('timer').style.display = 'block';
     const timerDisplay = document.getElementById('timer');
@@ -208,50 +209,64 @@ async function submitAnswers() {
     const scratches = document.createElement('div');
     scratches.classList.add('scratches');
     justifyUser.appendChild(scratches);
-    
+
     console.log(correctAnswers.length);
     const options = document.querySelectorAll('.option');
     options.forEach(opt => opt.onclick = null);
     const startQ = startQnumber;
     for (let i = 1; i <= correctAnswers.length; i++) {
-        const correctLetter = correctAnswers[i - 1];
-        const questionDiv = document.getElementById(`question${i+startQ}`);
-        questionDiv.innerHTML += `<div class="correct-answer">Correct Answer: ${correctLetter}</div>`;
+        const correctLetter = correctAnswers[i - 1].trim();
+        const questionDiv = document.getElementById(`question${i + startQ}`);
+        const options = questionDiv.querySelectorAll('.option');
+        options.forEach(option => {
+            if (option.textContent.trim() === correctLetter) {
+                option.classList.add('correctAnswer');
+            }
+        });
+    }
+    if (isAutomaticSubmission) {
+        await showCustomAlert("Time's up! Your answers have been automatically submitted.");
+    } else {
+        await showCustomAlert("Your answers have been successfully submitted.");
     }
 
-    isAutomaticSubmission = false;
+    
+window.onbeforeunload = function () {
+    if (answersSubmitted) {
+        return "You have already submitted your answers. Are you sure you want to leave?";
+    }
+    if (!answersSubmitted) {
+        return "Are you sure you want to leave? Your answers will be lost.";
+    }
+};
 
-    window.onbeforeunload = function () {
-        if (!answersSubmitted) {
-            return "Are you sure you want to leave? Your answers will be lost.";
-        }
-    };
+}
 
-    window.onbeforeunload = function () {
-        if (totalMarks !== null) {
-            return "You have submitted your answers. Are you sure you want to leave the page?";
-        }
-    };
+function getFeedbackMessage(score) {
+    if (score === 100) {
+        return "Excellent! You got all the answers correct!";
+    } else if (score >= 80) {
+        return "Great job! You have a strong understanding of the material.";
+    } else if (score >= 60) {
+        return "Good effort! There's still room for improvement.";
+    } else if (score >= 40) {
+        return "You passed, but consider reviewing the material.";
+    } else {
+        return "You did not pass. It might help to go over the material again.";
+    }
 }
 
 function hideAll() {
-    const divIdsToHide = ['questionNumber', 'timerDuration', 'generatedText', 'questionnumbertext', 'timetext', 'headtext'];
-    divIdsToHide.forEach(id => {
-        const divToHide = document.getElementById(id);
-        if (divToHide) {
-            divToHide.style.display = 'none';
-        }
-    });
+    document.getElementById('noteIt').style.display = 'none';
+    document.getElementById('generatedText').style.display = 'none';
 }
 
-function getFeedbackMessage(marks) {
-    if (marks >= 85 && marks <= 100) {
-        return `You will top in any national level exam InshaAllah. You Obtained: ${marks}/100`;
-    } else if (marks >= 75 && marks < 85) {
-        return `Keep going, you're doing well. At least you will get a good subject in university exams InshaAllah! You obtained: ${marks}/100`;
-    } else if (marks >= 50 && marks < 75) {
-        return `You can do better, keep practicing. Have to do better! You obtained: ${marks}/100`;
-    } else {
-        return `Don't give up, keep working hard! Your Position is not good. You obtained: ${marks}/100`;
+window.onbeforeunload = function () {
+    if (answersSubmitted) {
+        return "You have already submitted your answers. Are you sure you want to leave?";
     }
-}
+    if (!answersSubmitted) {
+        return "Are you sure you want to leave? Your answers will be lost.";
+    }
+};
+
