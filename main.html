@@ -74,9 +74,17 @@ input[type="text"]:focus {
             errorMessage.textContent = "";
             submitButton.disabled = false;
             document.getElementById('noteIt').style.display = 'block';
+
             const questionNumber = gucco1.length;
+            const timePerQuestion = parseInt(document.getElementById('timePerQuestion').value, 10);
+            const timeInseconds = questionNumber * timePerQuestion;
+              const timeInMinutes= timeInseconds / 60;
+              const timerDuration = customRound(timeInMinutes);
             const resultDiv = document.getElementById('noteIt');
-            const message = `Number of questions: <span class="highlight"> ${questionNumber} </span>`;
+
+            // const message = `Number of questions: <span class="highlight"> ${questionNumber} </span>`;
+            const message = `Number of questions: <span class="highlight"> ${questionNumber} </span> <br> You will get 👉<span class="highlight" id="minuteGarbage"> some minutes </span> to give this exam`;
+
             resultDiv.innerHTML = message;
         }
     }
