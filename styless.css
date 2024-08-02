@@ -10,8 +10,54 @@ body, html {
     position: relative;
     margin: 0;
     padding: 0;
-    background: url('https://images.unsplash.com/photo-1457276587196-a9d53d84c58b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
-    background-size: cover; 
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #87CEFA, #FFFFFF);
+    /* background: url('https://images.unsplash.com/photo-1457276587196-a9d53d84c58b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center fixed;
+    background-size: cover;  */
+}
+.curved-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at bottom right, #1E90FF, #00BFFF);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    z-index: -1;
+}
+
+.shape {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.shape:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.3);
+    top: 30%;
+    left: 70%;
+}
+
+.shape:nth-child(3) {
+    width: 250px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.4);
+    top: 70%;
+    left: 20%;
+}
+.content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
 }
 
 .container {
@@ -201,11 +247,8 @@ button:hover {
 }
 
 #verifyBytton{
-    
     padding: 13px 10px;
     background: #007bff;
-    
-    
     color: white;
     font-weight: bold;
     font-size: 20px;
