@@ -281,22 +281,25 @@ button:hover {
 
 
 
-#timer{
-    color:red;
-    font-size: 25px;
-    position:fixed;
+#timer {
+    color: red;
+    font-size: 30px;
+    font-family: revert;
+    position: fixed;
     width: 100%;
     top: 0;
-    background-color: gold;
-    color: black;
-    border: solid 2px #0a147b42;
+    background-color: #ff9600f5;
+    opacity: 1;
+    color: #0c0c06;
+    /* border: solid 2px #0a147b42; */
     border-top: 0px;
     padding: 10px;
     text-align: center;
     font-weight: bold;
     border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px; 
-   
+    border-bottom-right-radius: 5px;
+    width: 22%;
+    left: 38%;
 }
 
 
